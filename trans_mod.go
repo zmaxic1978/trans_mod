@@ -3,6 +3,7 @@ package trans_mod
 import (
 	"encoding/json"
 	"os"
+	"sort"
 )
 
 func Do(src string, dest string) error {
@@ -29,6 +30,9 @@ func Do(src string, dest string) error {
 		}
 		srcRows = append(srcRows, p)
 	}
+
+	//  сортировка данных
+	sort.Slice(srcRows, func(i, j int) bool { return srcRows[i].Age < srcRows[j].Age })
 
 	// собираем и пишем данные
 	nf, err := os.Create(dest)
