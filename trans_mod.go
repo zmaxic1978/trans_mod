@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"os"
+	"sort"
 )
 
 func Do(src string, dest string) error {
@@ -30,6 +31,9 @@ func Do(src string, dest string) error {
 		}
 		srcRows = append(srcRows, p)
 	}
+
+	//  сортировка данных
+	sort.Slice(srcRows, func(i, j int) bool { return srcRows[i].Age < srcRows[j].Age })
 
 	type patients struct{ Patient []Patient }
 	pats := patients{Patient: srcRows}
